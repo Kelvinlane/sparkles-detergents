@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkles Detergents - Premium Cleaning Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #1a6bcc, #0d5cb6);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .delivery-info {
+            background-color: #ffcc00;
+            color: #333;
+            padding: 8px;
+            font-weight: 600;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 0.9rem;
+        }
+        
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #ff4444;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .product-badge.new {
+            background-color: #28a745;
+        }
+        
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom right, #f0f8ff, #e6f2ff);
+            padding: 15px;
+        }
+        
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-brand {
+            color: #1a6bcc;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #222;
+            height: 60px;
+            overflow: hidden;
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            height: 40px;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .current-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #222;
+        }
+        
+        .original-price {
+            font-size: 1.2rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+        
+        .discount {
+            color: #ff4444;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-left: 10px;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            overflow: hidden;
+            width: 120px;
+        }
+        
+        .quantity-btn {
+            background: #f0f8ff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-btn:hover {
+            background: #e0f0ff;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            height: 40px;
+            border: none;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .add-to-cart {
+            background: linear-gradient(to right, #1a6bcc, #0d5cb6);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .add-to-cart:hover {
+            background: linear-gradient(to right, #0d5cb6, #0a4d9c);
+            box-shadow: 0 4px 12px rgba(26, 107, 204, 0.3);
+        }
+        
+        .add-to-cart i {
+            font-size: 1.1rem;
+        }
+        
+        .out-of-stock {
+            background-color: #f8f9fa;
+            color: #999;
+            border: 1px solid #ddd;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+        }
+        
+        /* Cart Notification */
+        .cart-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .cart-notification i {
+            font-size: 1.5rem;
+        }
+        
+        .view-cart-btn {
+            background: white;
+            color: #28a745;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #ddd;
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 50px;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .contact-info {
+            margin-top: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .contact-info i {
+            color: #ffcc00;
+            margin-right: 8px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .product-title {
+                font-size: 1.1rem;
+                height: 50px;
+            }
+            
+            .add-to-cart {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .quantity-selector {
+                width: 100%;
+            }
+            
+            .add-to-cart {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">SPARKLES DETERGENTS</div>
+            <div class="tagline">Premium Cleaning Solutions for Your Home</div>
+            <div class="delivery-info">
+                <i class="fas fa-truck"></i> FREE DELIVERY IN NAIROBI, KIAMBU, KAJIADO, MACHAKOS
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="products-grid" id="products-container">
+            <!-- Products will be dynamically generated here -->
+        </div>
+    </main>
+    
+    <div class="cart-notification" id="cart-notification">
+        <i class="fas fa-check-circle"></i>
+        <span>Product added successfully.</span>
+        <button class="view-cart-btn">View Cart</button>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-logo">SPARKLES DETERGENTS</div>
+            <p>High-quality cleaning products for a sparkling home</p>
+            <div class="contact-info">
+                <i class="fas fa-phone"></i> TEL: 0759102078
+            </div>
+            <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">&copy; 2026 Sparkles Detergents. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Product data with images, descriptions, and prices
+        const products = [
+            {
+                id: 1,
+                name: "Shower Gel",
+                brand: "Sparkles",
+                description: "All natural, moisturising and nourishing. Kills 99.9% germs.",
+                image: "Dofoto_20260106_130957947.jpg",
+                price: 700,
+                originalPrice: 1000,
+                discount: 30,
+                inStock: true,
+                badge: "NEW"
+            },
+            {
+                id: 2,
+                name: "Dishwashing Liquid Lemon",
+                brand: "Sparkles",
+                description: "Powerful lemon formula for sparkling clean dishes.",
+                image: "Dofoto_20260105_150608139.jpg",
+                price: 450,
+                originalPrice: 700,
+                discount: 36,
+                inStock: true,
+                badge: "NEW"
+            },
+            {
+                id: 3,
+                name: "Fabric Softener",
+                brand: "Sparkles",
+                description: "Enhanced with a long lasting fragrance!!",
+                image: "Dofoto_20260105_150739737.jpg",
+                price: 950,
+                originalPrice: 1400,
+                discount: 32,
+                inStock: true,
+                badge: "NEW"
+            },
+            {
+                id: 4,
+                name: "Laundry Detergent",
+                brand: "Sparkles",
+                description: "Smart dirt removal system for effective cleaning.",
+                image: "Dofoto_20260105_151624084.jpg",
+                price: 500,
+                originalPrice: 800,
+                discount: 38,
+                inStock: true,
+                badge: "NEW"
+            },
+            {
+                id: 5,
+                name: "Hair Shampoo",
+                brand: "Sparkles",
+                description: "Effective on aging hair, colour extending, damaged hair, detangling, and shine enhancing.",
+                image: "Dofoto_20260105_040738090.jpg",
+                price: 500,
+                originalPrice: 850,
+                discount: 41,
+                inStock: true,
+                badge: "NEW"
+            },
+            {
+                id: 6,
+                name: "Bleach Abstract",
+                brand: "Sparkles",
+                description: "Laundry detergent with powerful stain removal.",
+                image: "Dofoto_20260105_145304900.jpg",
+                price: 499,
+                originalPrice: 750,
+                discount: 34,
+                inStock: true,
+                badge: "NEW"
+            },
+            {
+                id: 7,
+                name: "Multi-Purpose Liquid Soap",
+                brand: "Sparkles",
+                description: "Super fresh and clean. Tough on spreads.",
+                image: "Dofoto_20260106_131334771.jpg",
+                price: 699,
+                originalPrice: 1100,
+                discount: 36,
+                inStock: true,
+                badge: "NEW"
+            }
+        ];
+
+        // Generate product cards
+        const productsContainer = document.getElementById('products-container');
+        
+        products.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            
+            // Calculate discount if not provided
+            const discount = product.discount || Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+            
+            productCard.innerHTML = `
+                <div class="product-badge ${product.badge ? 'new' : ''}">${product.badge}</div>
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                </div>
+                <div class="product-info">
+                    <div class="product-brand">${product.brand}</div>
+                    <h3 class="product-title">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-price">
+                        <span class="current-price">KES ${product.price}</span>
+                        <span class="original-price">KES ${product.originalPrice}</span>
+                        <span class="discount">-${discount}%</span>
+                    </div>
+                    <div class="product-actions">
+                        <div class="quantity-selector">
+                            <button class="quantity-btn minus" data-id="${product.id}">-</button>
+                            <input type="text" class="quantity-input" value="1" readonly data-id="${product.id}">
+                            <button class="quantity-btn plus" data-id="${product.id}">+</button>
+                        </div>
+                        ${product.inStock ? 
+                            `<button class="add-to-cart" data-id="${product.id}">
+                                <i class="fas fa-cart-plus"></i> Add To Cart
+                            </button>` : 
+                            `<div class="out-of-stock">OUT OF STOCK</div>`
+                        }
+                    </div>
+                </div>
+            `;
+            
+            productsContainer.appendChild(productCard);
+        });
+        
+        // Cart functionality
+        const cart = {};
+        const cartNotification = document.getElementById('cart-notification');
+        
+        // Quantity button functionality
+        document.addEventListener('click', function(e) {
+            // Plus button
+            if (e.target.classList.contains('plus')) {
+                const productId = e.target.getAttribute('data-id');
+                const input = document.querySelector(`.quantity-input[data-id="${productId}"]`);
+                input.value = parseInt(input.value) + 1;
+            }
+            
+            // Minus button
+            if (e.target.classList.contains('minus')) {
+                const productId = e.target.getAttribute('data-id');
+                const input = document.querySelector(`.quantity-input[data-id="${productId}"]`);
+                if (parseInt(input.value) > 1) {
+                    input.value = parseInt(input.value) - 1;
+                }
+            }
+            
+            // Add to cart button
+            if (e.target.classList.contains('add-to-cart') || e.target.closest('.add-to-cart')) {
+                const addToCartBtn = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
+                const productId = addToCartBtn.getAttribute('data-id');
+                const quantityInput = document.querySelector(`.quantity-input[data-id="${productId}"]`);
+                const quantity = parseInt(quantityInput.value);
+                const product = products.find(p => p.id == productId);
+                
+                // Add to cart object
+                if (cart[productId]) {
+                    cart[productId].quantity += quantity;
+                } else {
+                    cart[productId] = {
+                        ...product,
+                        quantity: quantity
+                    };
+                }
+                
+                // Show notification
+                cartNotification.style.display = 'flex';
+                setTimeout(() => {
+                    cartNotification.style.display = 'none';
+                }, 4000);
+                
+                // Reset quantity to 1
+                quantityInput.value = 1;
+            }
+            
+            // View cart button in notification
+            if (e.target.classList.contains('view-cart-btn')) {
+                alert(`Your cart has ${Object.keys(cart).length} items. Total: KES ${calculateTotal()}`);
+            }
+        });
+        
+        // Calculate cart total
+        function calculateTotal() {
+            let total = 0;
+            for (const productId in cart) {
+                total += cart[productId].price * cart[productId].quantity;
+            }
+            return total;
+        }
+    </script>
+</body>
+</html>
